@@ -3,14 +3,11 @@
     [isSidebarOpen]="isSidebarOpen" 
     (toggleSidebar)="isSidebarOpen = !isSidebarOpen"
   />
-  
-  <app-sidebar [isSidebarOpen]="isSidebarOpen" />
-
+  <app-sidebar 
+    [isSidebarOpen]="isSidebarOpen" 
+  />
   <div class="main-content">
     <router-outlet />
   </div>
-
-  <footer class="footer">
-    © 2025 Your Company
-  </footer>
+  <app-footer />
 </div>

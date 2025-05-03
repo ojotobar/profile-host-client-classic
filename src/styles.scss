@@ -287,7 +287,7 @@ button:active, .btn:active {
   .menu-button {
     background: none;
     border: none;
-    color: white;
+    color: var(--icon-color);
     font-size: 1.5rem;
     cursor: pointer;
   }
@@ -299,12 +299,60 @@ button:active, .btn:active {
   }
   
   .footer {
-    background-color: #f0f0f0;
-    text-align: center;
-    padding: 1rem;
+    background: var(--bg-topbar);
+    padding: 20px 0;
     font-size: 14px;
-    color: #666;
-  }  
+    color: var(--icon-color);
+    text-align: center;
+    margin-left: 180px;
+    transition: margin-left 0.3s ease;
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+  
+    .footer-links {
+      display: flex;
+      gap: 20px;
+  
+      a {
+        text-decoration: none;
+        color: #555;
+  
+        &:hover {
+          color: var(--color-primary); // your theme color if set
+        }
+      }
+    }
+  
+    .footer-social {
+      display: flex;
+      gap: 15px;
+  
+      a {
+        color: #555;
+  
+        mat-icon {
+          font-size: 20px;
+        }
+  
+        &:hover {
+          color: var(--color-primary);
+        }
+      }
+    }
+  
+    .footer-powered {
+      font-weight: 300;
+      font-size: 13px;
+    }
+  }    
   
   /* Main content */
   .main-content {
@@ -330,5 +378,12 @@ button:active, .btn:active {
       margin-left: 180px !important;
     }
   }  
+
+  @media screen and (max-width: 767px) {
+    .footer {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -25,6 +25,17 @@ export class ThemeService {
     localStorage.setItem('dark-theme', String(this.darkMode));
   }
 
+  setDefaultThemeByTime(): void {
+    const hour = new Date().getHours();
+    if(hour >= 18){
+      document.body.classList.add('dark-theme');
+      this.darkMode = true;
+    }else {
+      document.body.classList.remove('dark-theme');
+    }
+    localStorage.setItem('dark-theme', String(this.darkMode));
+  } 
+
   enableDark() {
     this.darkMode = true;
     document.body.classList.add('dark-theme');
