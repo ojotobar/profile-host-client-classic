@@ -1,0 +1,63 @@
+@if (isSidebarOpen) {
+    <div class="backdrop" @backdropFade (click)="closeSidebar()"></div>
+  } 
+<div class="sidebar" [class.open]="isSidebarOpen">
+    <div class="content" style="margin-top: 60px;">     
+        <div class="link">
+          <div class="content py-3" [routerLink]="['/']" [routerLinkActive]="'active'">
+            <div class="icon">
+              <mat-icon>home</mat-icon>
+            </div>
+            <div class="title">Home</div>
+          </div>
+        </div>
+        <div class="link">
+          <div class="content py-3" [routerLink]="['/experiences']" [routerLinkActive]="'active'">
+            <div class="icon">
+              <mat-icon>workspace_premium</mat-icon>	
+            </div>
+            <div class="title">Experience</div>
+          </div>
+        </div>
+        <div class="link">
+          <div class="content py-3" [routerLink]="['/skills']" [routerLinkActive]="'active'">
+            <div class="icon">
+              <mat-icon>handyman</mat-icon>	
+            </div>
+            <div class="title">Skills</div>
+          </div>
+        </div>
+        <div class="link">
+          <div class="content py-3" [routerLink]="['/educations']" [routerLinkActive]="'active'">
+            <div class="icon">
+              <mat-icon>menu_book</mat-icon>	
+            </div>
+            <div class="title">Education</div>
+          </div>
+        </div>
+        <div class="link">
+          <div class="content py-3" [routerLink]="['/projects']" [routerLinkActive]="'active'">
+            <div class="icon">
+              <mat-icon>workspaces</mat-icon>	
+            </div>
+            <div class="title">Projects</div>
+          </div>
+        </div>
+        <div class="link">
+          <div class="content py-3" [routerLink]="['/certifications']" [routerLinkActive]="'active'">
+            <div class="icon">
+              <mat-icon>verified</mat-icon>	
+            </div>
+            <div class="title">Certifications</div>
+          </div>
+        </div>
+        <div class="link">
+          <div class="content py-3" [routerLink]="['/contact']" [routerLinkActive]="'active'">
+            <div class="icon">
+              <mat-icon>question_answer</mat-icon>
+            </div>
+            <div class="title">Contact</div>
+          </div>
+        </div>
+      </div>
+</div>

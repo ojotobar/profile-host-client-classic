@@ -1,24 +1,16 @@
-<div>
-  <div class="topbar">
-    <button (click)="toggleSidebar()" class="menu-button">☰</button>
-    
-    <button (click)="toggleTheme()" class="theme-toggle-button">
-      🌙 / 🌞
-    </button>
-  </div>
+<div class="layout-wrapper">
+  <app-topbar 
+    [isSidebarOpen]="isSidebarOpen" 
+    (toggleSidebar)="isSidebarOpen = !isSidebarOpen"
+  />
+  
+  <app-sidebar [isSidebarOpen]="isSidebarOpen" />
 
-  @if (isSidebarOpen) {
-    <div class="backdrop" @backdropFade (click)="closeSidebar()"></div>
-  } 
-  <div class="sidebar" [class.open]="isSidebarOpen">
-    <div class="sidebar-content">
-      <a href="#" style="padding-top: 3rem;">Dashboard</a>
-      <a href="#">Projects</a>
-      <a href="#">Reports</a>
-      <a href="#">Settings</a>
-    </div>
-  </div>
-  <div class="main-content mt-3">
+  <div class="main-content">
     <router-outlet />
   </div>
+
+  <footer class="footer">
+    © 2025 Your Company
+  </footer>
 </div>

@@ -1,0 +1,15 @@
+<div class="topbar d-flex justify-content-between">
+    <div [routerLink]="['/']">
+      <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Profile" class="header-avatar">
+    </div>
+    <div>
+      <button (click)="toggleTheme()" class="theme-toggle-button">
+        @if(themeService.isDarkMode()){
+          <i class="bi bi-brightness-high"></i>
+        }@else {
+          <i class="bi bi-moon" style="color: #222 !important"></i>
+        }
+      </button>
+      <button (click)="handleSidebarToggle()" class="menu-button">☰</button>
+    </div>
+</div>
