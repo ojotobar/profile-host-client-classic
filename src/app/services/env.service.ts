@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { BUILD_VARIABLES } from '../tokens';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EnvService {
-    coreServerUrl = (window as any).__env?.BACK_END_SERVER_URL || '';
-    apiKey = (window as any).__env?.X_PPAPI_KEY || ''
+  get apiKey(): string {
+    return (window as any).__env?.X_PPAPI_KEY || ''
+  }
 }

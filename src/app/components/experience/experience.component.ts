@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
+  standalone: true,
   selector: 'app-experience',
   imports: [RouterLink],
   templateUrl: './experience.component.html',

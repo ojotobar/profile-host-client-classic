@@ -10,6 +10,10 @@ import { EnvService } from '../../services/env.service';
   styles: ``
 })
 export class FooterComponent {
-  envS = inject(EnvService)
+  version: string = '';
   currentYear = new Date().getFullYear();
+
+  constructor(private envService: EnvService){
+    //this.version = this.envService.version
+  }
 }
