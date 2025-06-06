@@ -14,18 +14,18 @@
 
 /* Dark Theme Overrides */
 .dark-theme {
-    //--bg-main: #0F3460;
-    --bg-main: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    --bg-sidebar: #1e2a38;
-    --bg-topbar: #191f2c;
-    --bg-card: #1e2a38;
-    --color-primary: #E94560;
-    --color-primary-text: #F9F9F9;
-    --color-muted-text: #CCCCCC;
-    --bg-button: #E94560;
-    --rgba-bg: rgba(233, 69, 96, 0.15);
-    --rgba-color: #E94560;
-    --icon-color: #E94560;
+  //--bg-main: #0F3460;
+  --bg-main: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  --bg-sidebar: #1e2a38;
+  --bg-topbar: #191f2c;
+  --bg-card: #1e2a38;
+  --color-primary: #E94560;
+  --color-primary-text: #F9F9F9;
+  --color-muted-text: #CCCCCC;
+  --bg-button: #E94560;
+  --rgba-bg: rgba(233, 69, 96, 0.15);
+  --rgba-color: #E94560;
+  --icon-color: #E94560;
 }
 
 body {
@@ -111,7 +111,7 @@ button:active, .btn:active {
 .location, .xp {
     margin: 0.5rem 0;
     font-size: 0.95rem;
-  }
+}
 
 /* Styling for the theme toggle button */
 .theme-toggle-button {
@@ -387,3 +387,13 @@ button:active, .btn:active {
   }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.xp-entry {
+  min-height: 7rem !important;
+  border-left: 5px solid var(--rgba-color);
+}
+
+.muted-text {
+  color: #999 !important;
+  font-style: italic !important;
+}
