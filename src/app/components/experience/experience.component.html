@@ -1,1 +1,20 @@
-<p>experience works!</p>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-0 col-md-2 col-lg-3"></div>
+        <div class="col-sm-12 col-md-8 col-lg-6">
+            <h4 class="card-title pb-0 mb-0">My Experiences</h4>
+            <div class="timeline my-3">
+                @for (experience of experiences; track $index) {
+                    <div class="point my-3"  [routerLink]="['/experiences', experience.id]">
+                        <div class="card xp-entry">
+                            <h5 class="card-title pb-0 mb-0">{{experience.title}}</h5>
+                            <p class="muted-text my-1">{{experience.company}} | {{experience.startYear}} - {{experience.endYear}}</p>
+                            <p>{{experience.description}}</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-sm-0 col-md-2 col-lg-3"></div>
+    </div>
+</div>
