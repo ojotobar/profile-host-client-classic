@@ -19,7 +19,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideApollo(() => {
       const envService = inject(EnvService)
-      const url = envService.coreServerUrl;
       const apiKey = envService.apiKey
       const httpLink = inject(HttpLink);
     
@@ -45,7 +44,7 @@ export const appConfig: ApplicationConfig = {
 
       const link = ApolloLink.from([
         authLink,
-        httpLink.create({ uri: url }),
+        httpLink.create({ uri: envService.apiUrl }),
       ]);
 
       return {

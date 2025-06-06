@@ -13,7 +13,7 @@ export class FooterComponent {
   version: string = '';
   currentYear = new Date().getFullYear();
 
-  constructor(private envService: EnvService){
-    //this.version = this.envService.version
+  constructor(private readonly envService: EnvService){
+    this.version = this.envService.version
   }
 }
