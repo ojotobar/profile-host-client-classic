@@ -9,7 +9,6 @@ mkdir -p /usr/share/nginx/html/assets/env
 cat <<EOF > /usr/share/nginx/html/assets/env/runtime-env.js
 (function (window) {
   window.__env = {
-    BACK_END_SERVER_URL: "${BACK_END_SERVER_URL}",
     X_PPAPI_KEY: "${X_PPAPI_KEY}"
   };
 })(this);
