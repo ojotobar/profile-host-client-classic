@@ -76,6 +76,15 @@ body {
     border: none;
     color: var(--color-primary-text);
 }
+
+.card-no-transform {
+    background-color: var(--bg-card) !important;
+    padding: 1.5rem !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    border: none;
+    color: var(--color-primary-text);
+}
   
 .card:hover, .skill-card:hover {
     transform: scale(1.02);
