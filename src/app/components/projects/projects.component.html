@@ -1,1 +1,29 @@
-<p>projects works!</p>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-0 col-md-2 col-lg-3"></div>
+        <div class="col-sm-12 col-md-8 col-lg-6">
+            <h4 class="card-title pb-0 mb-0">My Projetcs</h4>
+            <div class="timeline my-3">
+                @for (project of projectsData; track $index) {
+                    <div class="point my-3">
+                        <div class="card">
+                            <p class="card-title fw-bolder pb-0 mb-0">{{project.Name}}</p>
+                            <p>{{project.Description}}</p>
+                            <p>
+                                @for (tech of project.Technologies; track $index) {
+                                    <span class="badge mx-1">{{tech}}</span>
+                                }
+                            </p>
+                            @if(project.Link){
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{project.Link}}" class="card-title" target="_blank">View Project</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-sm-0 col-md-2 col-lg-3"></div>
+    </div>
+</div>
