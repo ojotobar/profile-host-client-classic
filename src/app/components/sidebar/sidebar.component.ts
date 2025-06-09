@@ -2,6 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { ProfileSummaryForMenu } from '../../entities/models/profile-models';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,6 +28,11 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class SidebarComponent {
   @Input() isSidebarOpen: boolean = false;
+  @Input() showXpMenu: boolean = false;
+  @Input() showSkillMenu: boolean = false;
+  @Input() showCertMenu: boolean = false;
+  @Input() showEducationMenu: boolean = false;
+  @Input() showProjectMenu: boolean = false;
   isExpanded: boolean = false;
 
   subSidebarToggle = () => !this.isExpanded;

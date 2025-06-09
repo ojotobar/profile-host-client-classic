@@ -1,13 +1,5 @@
 <div class="social">
-    <a href="#" target="_blank"><i class="bi bi-github"></i></a>
-    <a href="#" target="_blank"><i class="bi bi-linkedin"></i></a>
-    <a href="#" target="_blank">
-      <i class="bi bi-x-lg"></i>
-    </a>
-    <a href="#" target="_blank">
-      <i class="bi bi-gitlab"></i>
-    </a>
-    <a href="#" target="_blank">
-      <i class="bi bi-facebook"></i>
-    </a>
+  @for (media of data; track $index) {
+    <a [href]="media.link" target="_blank"><i class="bi bi-{{media.iconName}}"></i></a>
+  }
 </div>

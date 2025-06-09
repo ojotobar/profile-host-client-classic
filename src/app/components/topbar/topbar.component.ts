@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class TopbarComponent {
   @Input() isSidebarOpen: boolean = false;
+  @Input() profilePicture: string = ''
   @Output() toggleSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
   
   constructor(public themeService: ThemeService) {}
