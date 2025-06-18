@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SocialMedia } from '../../entities/models/profile-models';
 
 @Component({
   selector: 'app-socials',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class SocialsComponent {
-
+  @Input() data: SocialMedia[] = [];
 }

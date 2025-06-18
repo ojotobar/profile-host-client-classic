@@ -27,7 +27,7 @@ export class ThemeService {
 
   setDefaultThemeByTime(): void {
     const hour = new Date().getHours();
-    if(hour >= 18){
+    if(hour >= 18 || hour <= 6){
       document.body.classList.add('dark-theme');
       this.darkMode = true;
     }else {

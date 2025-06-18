@@ -1,61 +1,72 @@
-<!-- profile-summary.component.html -->
-<div class="container">
+@if(data){
+  <div class="container">
     <div class="row">
         <div class="col-md-0 col-lg-2"></div>
         <div class="col-md-12 col-lg-8">
             <div class="row row-cols-1 row-cols-md-2 g-4 d-flex justify-content-center">
-                <div class="col point"  [routerLink]="['/experiences']">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <mat-icon>workspace_premium</mat-icon> Experiences
-                      </h5>
-                      <p class="card-text" style="color: #999;font-style: italic;">5+ years</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col point" [routerLink]="['/educations']">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <mat-icon>menu_book</mat-icon> Education
-                      </h5>
-                      <p class="card-text" style="color: #999;font-style: italic;">2 schools attended</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col point" [routerLink]="['/skills']">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <mat-icon>handyman</mat-icon> Skills
-                      </h5>
-                      <p class="card-text" style="color: #999;font-style: italic;">5 skills</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col point" [routerLink]="['/certifications']">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <mat-icon>verified</mat-icon> Certifications
-                      </h5>
-                      <p class="card-text" style="color: #999;font-style: italic;">2 completed</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col point" [routerLink]="['/projects']">
+                @if(data.yearsOfExperience > 0){
+                  <div class="col point"  [routerLink]="['/experiences']">
                     <div class="card">
                       <div class="card-body">
                         <h5 class="card-title">
-                            <mat-icon>workspaces</mat-icon>	Projects
+                          <mat-icon>workspace_premium</mat-icon> Experiences
                         </h5>
-                        <p class="card-text" style="color: #999;font-style: italic;">3 projects</p>
+                        <p class="card-text" style="color: #999;font-style: italic;">{{data.yearsOfExperience}}+ {{xpVerbiage}}</p>
                       </div>
                     </div>
                   </div>
+                }
+                @if(data.educationCount > 0){
+                  <div class="col point" [routerLink]="['/educations']">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          <mat-icon>menu_book</mat-icon> Education
+                        </h5>
+                        <p class="card-text" style="color: #999;font-style: italic;">{{data.educationCount}} {{educationVerbiage}}</p>
+                      </div>
+                    </div>
+                  </div>
+                }
+                @if(data.skillCount > 0){
+                  <div class="col point" [routerLink]="['/skills']">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          <mat-icon>handyman</mat-icon> Skills
+                        </h5>
+                        <p class="card-text" style="color: #999;font-style: italic;">{{data.skillCount}} {{skillsVerbiage}}</p>
+                      </div>
+                    </div>
+                  </div>
+                }
+                @if(data.certificationCount > 0){
+                  <div class="col point" [routerLink]="['/certifications']">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          <mat-icon>verified</mat-icon> Certifications
+                        </h5>
+                        <p class="card-text" style="color: #999;font-style: italic;">{{data.certificationCount}} completed</p>
+                      </div>
+                    </div>
+                  </div>
+                }
+                @if(data.projectCount){
+                  <div class="col point" [routerLink]="['/projects']">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">
+                              <mat-icon>workspaces</mat-icon>	Projects
+                          </h5>
+                          <p class="card-text" style="color: #999;font-style: italic;">{{data.projectCount}} {{projectVerbiage}}</p>
+                        </div>
+                      </div>
+                  </div>
+                }
             </div>
         </div>
         <div class="col-md-0 col-lg-2"></div>
     </div>
 </div>
+}

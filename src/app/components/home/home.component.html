@@ -1,11 +1,24 @@
-<div class="row mx-2 mt-5 anim-top-left">
+@if(loading){
+  <app-custom-spinner
+    [classes]="'mt-5'"
+    [width]="'3rem'"
+    [height]="'3rem'"
+  />
+}@else if(!loading && hasError){
+  <app-custom-alert 
+    [alertType]="CustomClassTypeEnum.danger"
+    [heading]="'An error occurred!!!'"
+    [message]="errorMessage"
+  />
+}@else {
+  <div class="row mx-2 mt-5 anim-top-left">
     <div class="col-md-12 col-lg-1"></div>
     <div class="col-md-12 col-lg-10">
         <div class="card mb-3">
             <div class="row g-0">
               <div class="col-md-4 d-flex justify-content-center">
                 <img 
-                  src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                  [src]="profile.photoUrl" 
                   class="img-fluid"
                   style="border-radius: 12px; width: 220px; height: 100%; object-fit: cover;" 
                   alt="..."
@@ -13,21 +26,20 @@
               </div>              
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title pb-0 mb-0">David Williams</h5>
-                  <p class="mt-0 pt-0" style="color: #999;font-style: italic;">Software Engineer</p>
-                  <p class="location"> <i class="bi bi-geo-alt"></i> San Francisco, CA</p>
+                  <h5 class="card-title pb-0 mb-0">{{profile.firstName}} {{profile.lastName}}</h5>
+                  <p class="mt-0 pt-0" style="color: #999;font-style: italic;">{{summary.profileHeading}}</p>
+                  <p class="location"> <i class="bi bi-geo-alt"></i>{{profile.location.city}}, {{profile.location.state}}.</p>
                   <p class="xp">
-                    <i class="bi bi-suitcase-lg"></i> 5+ Years Experience</p>
-                  <p>
-                    <span class="badge">.NET</span>
-                    <span class="badge mx-1">C#</span>
-                    <span class="badge mx-1">TypeScript</span>
-                    <span class="badge mx-1">GraphQL</span>
-                    <span class="badge mx-1">Docker</span>
-                  </p>                  
-                  <app-socials />
+                    <i class="bi bi-suitcase-lg"></i> {{summary.yearsOfExperience}} {{xpVerbiage}}
+                  </p>
+                  <app-skill-list
+                    [data]="summary.skills.slice(0, 5)"
+                  />                
+                  <app-socials 
+                    [data]="socialMedia" 
+                  />
                   <div class="card-text d-flex mt-3">
-                    <a href="#" class="btn ms-auto">Download CV</a>
+                    <a [href]="profile.cvUrl" target="_blank" class="btn ms-auto">Download CV</a>
                   </div>
                 </div>
               </div>
@@ -35,7 +47,10 @@
         </div>
     </div>
     <div class="col-md-12 col-lg-1"></div>
-</div>
-<div class="container">
-  <app-summary-cards />
-</div>
+  </div>
+  <div class="container">
+    <app-summary-cards 
+      [data]="summary"
+    />
+  </div>
+}

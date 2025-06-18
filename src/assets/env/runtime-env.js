@@ -1,5 +1,5 @@
 (function (window) {
     window.__env = {
-      X_PPAPI_KEY: ''
+      X_PPAPI_KEY: 'OTYyZWI4NmY2Mzg4NTc5ODA3MDIzMTA0NTRkNjJlNjM4ODU3OTgwNzAyMzEwNDU0NDU5MDYzODg1Nzk4MDcwMjMxMDQ1NGJlNDM2Mzg4NTc5ODA3MDIzMTA0NTQ0MDkxMTBjOWU1YzBuNDYzODg1Nzk4MDcwMjMxMDQ1NA=='
     };
 })(this);
