@@ -1,0 +1,9 @@
+<p>
+    @for (skill of data; track $index) {
+        @if($index === 0){
+            <span class="badge">{{skill}}</span>
+        }@else {
+            <span class="badge mx-1">{{skill}}</span>
+        }
+    }
+</p>

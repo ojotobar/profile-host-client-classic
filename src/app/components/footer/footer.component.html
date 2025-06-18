@@ -1,8 +1,10 @@
 <footer class="footer">
     <div class="footer-content">
-        <app-socials />
+        <app-socials [data]="socialMedia"/>
       <div class="footer-owner">
-        &copy; {{currentYear}} <strong>David Williams</strong> — Full-Stack Developer
+        &copy; {{currentYear}} <strong>{{name}}</strong> @if(heading){
+          — {{heading}}
+        }
       </div>
   
       <div class="footer-powered">

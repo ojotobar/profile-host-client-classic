@@ -1,13 +1,49 @@
 <div class="layout-wrapper">
-  <app-topbar 
-    [isSidebarOpen]="isSidebarOpen" 
-    (toggleSidebar)="isSidebarOpen = !isSidebarOpen"
-  />
-  <app-sidebar 
-    [isSidebarOpen]="isSidebarOpen" 
-  />
-  <div class="main-content">
-    <router-outlet />
-  </div>
-  <app-footer />
+  @if(apiKeyHasValue){
+    @if(loading){
+      <app-custom-spinner
+        [classes]="'mt-5'"
+        [width]="'5rem'"
+        [height]="'5rem'"
+      />
+    }
+    @else if(!loading && !hasError){
+      <app-topbar 
+        [isSidebarOpen]="isSidebarOpen" 
+        [profilePicture]="summary.profilePics"
+        (toggleSidebar)="isSidebarOpen = !isSidebarOpen"
+      />
+      <app-sidebar 
+        [isSidebarOpen]="isSidebarOpen"
+        [showXpMenu]="summary.showXpMenu"
+        [showSkillMenu]="summary.showSkillMenu"
+        [showEducationMenu]="summary.showEducationMenu"
+        [showProjectMenu]="summary.showProjectMenu"
+        [showCertMenu]="summary.showCertificationMenu"
+      />
+      <div class="main-content">
+        <router-outlet />
+      </div>
+      <app-footer 
+        [name]="summary.firstName + ' ' + summary.lastName"
+        [socialMedia]="summary.socialMedia"
+        [heading]="summary.profileHeading"
+      />
+    }@else {
+      <app-custom-alert 
+        [alertType]="CustomClassTypeEnum.danger"
+        [heading]="'An error occurred!!!'"
+        [message]="message"
+        [includeSupportLink]="true"
+      />
+    }
+  }@else {
+    <div class="container d-flex justify-content-center align-items-center mt-5">
+      <app-custom-alert 
+        [alertType]="CustomClassTypeEnum.danger"
+        [heading]="'Unauthorized!!!'"
+        [message]="'You\'re not authorized to accessed this page. Please provide the API key and try again!'"
+      />
+    </div>
+  }
 </div>

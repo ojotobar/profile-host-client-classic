@@ -7,7 +7,7 @@
                 @for (experience of experiences; track $index) {
                     <div class="point my-3"  [routerLink]="['/experiences', experience.id]">
                         <div class="card xp-entry">
-                            <h5 class="card-title pb-0 mb-0">{{experience.title}}</h5>
+                            <p class="card-title fw-bolder pb-0 mb-0">{{experience.title}}</p>
                             <p class="muted-text my-1">{{experience.company}} | {{experience.startYear}} - {{experience.endYear}}</p>
                             <p>{{experience.description}}</p>
                         </div>

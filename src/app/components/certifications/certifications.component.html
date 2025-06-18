@@ -1,1 +1,25 @@
-<p>certifications works!</p>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-0 col-md-2 col-lg-3"></div>
+        <div class="col-sm-12 col-md-8 col-lg-6">
+            <h4 class="card-title pb-0 mb-0">My Experiences</h4>
+            <div class="timeline my-3">
+                @for (certification of certifications; track $index) {
+                    <div class="point my-3">
+                        <div class="card">
+                            <p class="card-title fw-bolder pb-0 mb-0">{{certification.Name}}</p>
+                            <p class="muted-text my-1">{{certification.Institution}} | {{certification.DateObtained |  date:'MMM dd, yyyy' }}</p>
+                            <small class="muted-text my-1">Valid Until: {{certification.Expires | monthYearOrNa }}.</small>
+                            @if(certification.Link){
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{certification.Link}}" class="card-title" target="_blank">View Certification</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-sm-0 col-md-2 col-lg-3"></div>
+    </div>
+</div>
