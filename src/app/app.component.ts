@@ -27,7 +27,8 @@ import { ProfileSummaryForMenu, ProfileSummaryForMenuResult } from './entities/m
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'David Williams';
+  message = `Something went wrong and couldn't get the necessary startup data.`;
+  title = 'portfolio-classic';
   isSidebarOpen: boolean = false;
   themeService = inject(ThemeService);
   envService = inject(EnvService);

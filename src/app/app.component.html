@@ -30,13 +30,12 @@
         [heading]="summary.profileHeading"
       />
     }@else {
-      <div class="container d-flex justify-content-center align-items-center mt-5">
-        <app-custom-alert 
-          [alertType]="CustomClassTypeEnum.danger"
-          [heading]="'Unauthorized!!!'"
-          [message]="'You\'re not authorized to accessed this page. Please provide the API key and try again!'"
-        />
-      </div>
+      <app-custom-alert 
+        [alertType]="CustomClassTypeEnum.danger"
+        [heading]="'An error occurred!!!'"
+        [message]="message"
+        [includeSupportLink]="true"
+      />
     }
   }@else {
     <div class="container d-flex justify-content-center align-items-center mt-5">

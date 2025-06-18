@@ -24,3 +24,45 @@ export const GetProfileSummaryForMenuQuery = gql`
     }
 }
 `;
+
+export const GetProfileRecordQuery = gql`
+    query{
+        profileRecord{
+            profile{
+                firstName
+                lastName
+                otherName
+                email
+                phoneNumber
+                photoUrl
+                cvUrl
+                location{
+                    line1
+                    line2
+                    latitude
+                    longitude
+                    city
+                    state
+                    country
+                    postalCode
+                }
+                socialMedia{
+                    name
+                    iconName
+                    link
+                    type
+                }
+            }
+            summary{
+                profileHeading
+                yearsOfExperience
+                skills
+                skillCount
+                educationCount
+                projectCount
+                certificationCount
+            }
+            success
+  }
+}
+`;

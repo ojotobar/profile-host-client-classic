@@ -11,4 +11,5 @@ export class CustomAlertComponent {
   @Input() message: string = '';
   @Input() heading: string = '';
   @Input() alertType: CustomClassTypeEnum = CustomClassTypeEnum.danger
+  @Input() includeSupportLink: boolean = false;
 }
