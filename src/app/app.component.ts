@@ -11,6 +11,7 @@ import { CustomClassTypeEnum } from './entities/enums/custom-alert-type-enum';
 import { CustomSpinnerComponent } from './components/common/custom-spinner/custom-spinner.component';
 import { ProfileService } from './services/profile.service';
 import { ProfileSummaryForMenu, ProfileSummaryForMenuResult } from './entities/models/profile-models';
+import { CustomService } from './services/custom.service';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ export class AppComponent {
   isSidebarOpen: boolean = false;
   themeService = inject(ThemeService);
   envService = inject(EnvService);
-  profileSvc = inject(ProfileService)
+  profileSvc = inject(ProfileService);
+  customSvc = inject(CustomService);
   apiKeyHasValue: boolean = false;
   loading: boolean = false;
   hasError: boolean = false;
@@ -47,7 +49,7 @@ export class AppComponent {
     if(this.envService.apiKey){
       this.apiKeyHasValue = true;
     }
-
+    this.customSvc.getAndSetFavicon();
     this.getProfileSummaryForMenus();
     this.themeService.setDefaultThemeByTime();
   }
