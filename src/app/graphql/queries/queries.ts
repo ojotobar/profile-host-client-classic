@@ -174,3 +174,12 @@ export const getContactInfoQuery = gql`
         }
     }
 `;
+
+export const getFaviconQuery = gql`
+    query{
+        profileImage{
+            base64
+            contentType
+        }
+    }
+`;
