@@ -2,21 +2,41 @@
     <div class="row mt-5">
         <div class="col-sm-0 col-md-2 col-lg-3"></div>
         <div class="col-sm-12 col-md-8 col-lg-6">
-            <h4 class="card-title pb-0 mb-0">My Experiences</h4>
+            <h4 class="card-title pb-0 mb-0">My Certifications</h4>
             <div class="timeline my-3">
-                @for (certification of certifications; track $index) {
-                    <div class="point my-3">
-                        <div class="card">
-                            <p class="card-title fw-bolder pb-0 mb-0">{{certification.Name}}</p>
-                            <p class="muted-text my-1">{{certification.Institution}} | {{certification.DateObtained |  date:'MMM dd, yyyy' }}</p>
-                            <small class="muted-text my-1">Valid Until: {{certification.Expires | monthYearOrNa }}.</small>
-                            @if(certification.Link){
-                                <div class="d-flex justify-content-end">
-                                    <a href="{{certification.Link}}" class="card-title" target="_blank">View Certification</a>
-                                </div>
-                            }
+                @if(loading){
+                    <app-custom-spinner
+                        [classes]="'mt-5'"
+                        [width]="'3rem'"
+                        [height]="'3rem'"
+                    />
+                }@else if(!loading && hasError){
+                    <app-custom-alert
+                        [alertType]="CustomClassTypeEnum.danger"
+                        [heading]="'An error occurred!!!'"
+                        [message]="'Something went wrong while fetching records for this user. Please try again later'"
+                    />
+                }@else if(!certifications && !hasError){
+                    <app-custom-alert
+                        [alertType]="CustomClassTypeEnum.info"
+                        [heading]="'No record!!!'"
+                        [message]="'No record returned for this user'"
+                    />
+                }@else {
+                    @for (certification of certifications; track $index) {
+                        <div class="point my-3">
+                            <div class="card">
+                                <p class="card-title fw-bolder pb-0 mb-0">{{certification.name}}</p>
+                                <p class="muted-text my-1">{{certification.institution}} | {{certification.dateObtained |  date:'MMM dd, yyyy' }}</p>
+                                <small class="muted-text my-1">Valid Until: {{certification.expires | monthYearOrNa }}.</small>
+                                @if(certification.link){
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{certification.link}}" class="card-title" target="_blank">View Certification</a>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
         </div>

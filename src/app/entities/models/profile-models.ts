@@ -64,3 +64,17 @@ export interface ProfileLocationModel{
     country: string,
     postalCode: string
 }
+
+export interface LocationLean {
+    city: string,
+    state: string,
+    country: string
+}
+
+export interface ContactInfoResponseModel {
+    email: string,
+    phoneNumber: string,
+    socialMedia: SocialMedia[] | [],
+    location: ProfileLocationModel,
+    success: boolean
+}

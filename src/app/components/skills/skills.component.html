@@ -4,25 +4,45 @@
         <div class="col-sm-12 col-md-10">
             <h4 class="card-title pb-0 mb-3">My Skills & Core Competencies</h4>
             <div class="row gx-2 d-flex justify-content-center">
-                @for (skill of skills; track $index) {
-                    <div class="col-sm-12 col-md-6 col-lg-4 mb-2 py-2">
-                        <div class="skill-card point">
-                            <div class="card-title d-flex justify-content-between">
-                                <p class="pb-0 mb-0 fw-bold">{{skill.Name}}</p>
-                                @if(skill.Certified){
-                                    <mat-icon>verified</mat-icon>
-                                }
-                            </div>
-                            <div class="my-1 d-flex justify-content-between">
-                                <p class="muted-text d-flex mb-0 pb-0">
-                                    <mat-icon>history</mat-icon><span> - {{skill.YearsOfExperience}} {{skill.YearsOfExperience | xpYears}}</span>
-                                </p>
-                                <p class="d-flex pb-0 mb-0">
-                                    <mat-icon [style.color]="skill.Level | xpLevel">workspace_premium</mat-icon>
-                                </p>
+                @if(loading){
+                    <app-custom-spinner
+                        [classes]="'mt-5'"
+                        [width]="'3rem'"
+                        [height]="'3rem'"
+                    />
+                }@else if(!loading && hasError){
+                    <app-custom-alert
+                        [alertType]="CustomClassTypeEnum.danger"
+                        [heading]="'An error occurred!!!'"
+                        [message]="'Something went wrong while fetching records for this user. Please try again later'"
+                    />
+                }@else if(!skills && !hasError){
+                    <app-custom-alert
+                        [alertType]="CustomClassTypeEnum.info"
+                        [heading]="'No record!!!'"
+                        [message]="'No record returned for this user'"
+                    />
+                }@else {
+                    @for (skill of skills; track $index) {
+                        <div class="col-sm-12 col-md-6 col-lg-4 mb-2 py-2">
+                            <div class="skill-card point">
+                                <div class="card-title d-flex justify-content-between">
+                                    <p class="pb-0 mb-0 fw-bold">{{skill.name}}</p>
+                                    @if(skill.certified){
+                                        <mat-icon>verified</mat-icon>
+                                    }
+                                </div>
+                                <div class="my-1 d-flex justify-content-between">
+                                    <p class="muted-text d-flex mb-0 pb-0">
+                                        <mat-icon>history</mat-icon><span> - {{skill.yearsOfExperience}} {{skill.yearsOfExperience | xpYears}}</span>
+                                    </p>
+                                    <p class="d-flex pb-0 mb-0">
+                                        <mat-icon [style.color]="skill.level | xpLevel">workspace_premium</mat-icon>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
         </div>

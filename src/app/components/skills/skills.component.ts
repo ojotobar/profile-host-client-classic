@@ -1,23 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { XpLevelPipe } from '../../pipes/xp-level.pipe';
-import { XpLevelEnum } from '../../entities/enums/xp-level-enum';
 import { XpYearsPipe } from '../../pipes/xp-years.pipe';
+import { CustomAlertComponent } from '../common/custom-alert/custom-alert.component';
+import { CustomSpinnerComponent } from '../common/custom-spinner/custom-spinner.component';
+import { CustomClassTypeEnum } from '../../entities/enums/custom-alert-type-enum';
+import { SkillResponseModel } from '../../entities/models/skill-model';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-skills',
-  imports: [MatIconModule, XpLevelPipe, XpYearsPipe],
+  imports: [
+    MatIconModule, 
+    XpLevelPipe, 
+    XpYearsPipe,
+    CustomAlertComponent,
+    CustomSpinnerComponent
+  ],
   templateUrl: './skills.component.html',
   styles: ``
 })
 export class SkillsComponent {
-  skills = [
-    { Name: "JavaScript", YearsOfExperience: 5, Certified: true, Level: XpLevelEnum.Expert },
-    { Name: "React.js", YearsOfExperience: 4, Certified: false, Level: XpLevelEnum.Advanced },
-    { Name: "C#", YearsOfExperience: 5, Certified: true, Level: XpLevelEnum.Expert },
-    { Name: ".NET Core", YearsOfExperience: 5, Certified: true, Level: XpLevelEnum.Advanced },
-    { Name: "Angular", YearsOfExperience: 8, Certified: false, Level: XpLevelEnum.Intermediate },
-    { Name: "Kubernettes", YearsOfExperience: 1, Certified: true, Level: XpLevelEnum.Novice },
-    { Name: "Ansible", YearsOfExperience: 0.5, Certified: false, Level: XpLevelEnum.Beginner }
-  ];
+  loading: boolean = false;
+  hasError: boolean = false;
+  appSvc = inject(AppService);
+  CustomClassTypeEnum = CustomClassTypeEnum;
+  skills: SkillResponseModel[] = [];
+
+  ngOnInit(): void {
+    this.getSkills()
+  }
+
+  getSkills() {
+    this.loading = true;
+    this.appSvc.getSkillsObservable()
+      .valueChanges
+      .subscribe({
+        next: (data: any) => {
+          this.skills = <SkillResponseModel[]>(data.data.skills);
+          this.loading = false;
+        },
+        error: (e: Error) => {
+          this.loading = false;
+          this.hasError = true;
+        }
+    })
+  }
 }

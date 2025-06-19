@@ -26,7 +26,7 @@
               </div>              
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title pb-0 mb-0">{{profile.firstName}} {{profile.lastName}}</h5>
+                  <h5 class="card-title pb-0 mb-0">{{profile.otherName | initials:profile.firstName:profile.lastName }}</h5>
                   <p class="mt-0 pt-0" style="color: #999;font-style: italic;">{{summary.profileHeading}}</p>
                   <p class="location"> <i class="bi bi-geo-alt"></i>{{profile.location.city}}, {{profile.location.state}}.</p>
                   <p class="xp">
