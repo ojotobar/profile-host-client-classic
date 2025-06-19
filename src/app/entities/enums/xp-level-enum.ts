@@ -1,7 +1,7 @@
 export enum XpLevelEnum{
-    Beginner,
-    Novice,
-    Intermediate,
-    Advanced,
-    Expert
+    Beginner = 'BEGINNER',
+    Novice = 'NOVICE',
+    Intermediate = 'INTERMEDIATE',
+    Advanced = 'ADVANCED',
+    Expert = 'EXPERT'
 }

@@ -7,6 +7,7 @@ import { SkillListComponent } from '../common/skill-list/skill-list.component';
 import { CustomSpinnerComponent } from '../common/custom-spinner/custom-spinner.component';
 import { CustomAlertComponent } from '../common/custom-alert/custom-alert.component';
 import { CustomClassTypeEnum } from '../../entities/enums/custom-alert-type-enum';
+import { InitialsPipe } from '../../pipes/initials.pipe';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import { CustomClassTypeEnum } from '../../entities/enums/custom-alert-type-enum
     SocialsComponent,
     SkillListComponent,
     CustomSpinnerComponent,
-    CustomAlertComponent
+    CustomAlertComponent,
+    InitialsPipe
   ],
   templateUrl: './home.component.html',
   styles: ``

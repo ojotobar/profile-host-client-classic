@@ -5,29 +5,49 @@
             <div class="card-no-transform mb-3">
                 <h4 class="card-title pb-0 mb-0">Get In Touch</h4>
                 <hr class="mt-0 pt-0"/>
-                <div>
-                    <section>
-                        <p class="location"> <i class="bi bi-envelope"></i> <a class="mx-2" href="mailto:{{email}}">{{email}}</a></p>
-                        <p class="location"> <i class="bi bi-telephone"></i> <a class="mx-2" href="tel:{{phone}}">{{phone}}</a></p>
-                    </section>
-                    <section class="d-flex justify-content-center">
-                        <app-socials />
-                    </section>
-                </div>
-                <hr />
-                <div class="map">
-                    @if(displayMap()){
-                        <iframe
-                            width="100%"
-                            height="300"
-                            style="border:0"
-                            [src]="safeMapUrl"
-                            allowfullscreen
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                @if(loading){
+                    <app-custom-spinner
+                        [classes]="'mt-5'"
+                        [width]="'3rem'"
+                        [height]="'3rem'"
+                    />
+                }@else if(!loading && hasError){
+                    <app-custom-alert
+                        [alertType]="CustomClassTypeEnum.danger"
+                        [heading]="'An error occurred!!!'"
+                        [message]="'Something went wrong while fetching the record for this user. Please try again later'"
+                    />
+                }@else {
+                    <div>
+                        <section>
+                            <p class="location"> <i class="bi bi-envelope"></i> <a class="mx-2" href="mailto:{{contactInfo.email}}">{{contactInfo.email}}</a></p>
+                            <p class="location"> <i class="bi bi-telephone"></i> <a class="mx-2" href="tel:{{contactInfo.phoneNumber}}">{{contactInfo.phoneNumber}}</a></p>
+                        </section>
+                        <section class="d-flex justify-content-center">
+                            @if(contactInfo.socialMedia){
+                                <app-socials 
+                                    [data]="contactInfo.socialMedia"
+                                />
+                            }
+                        </section>
+                    </div>
+                    @if(contactInfo.location){
+                        <hr />
+                    <div class="map">
+                        @if(displayMap(contactInfo.location.longitude, contactInfo.location.latitude)){
+                            <iframe
+                                width="100%"
+                                height="300"
+                                style="border:0"
+                                [src]="safeMapUrl"
+                                allowfullscreen
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        }
+                    </div>
                     }
-                </div>
+                }
             </div>
         </div>
         <div class="col-sm-0 col-md-2 col-lg-3"></div>

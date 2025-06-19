@@ -4,14 +4,34 @@
         <div class="col-sm-12 col-md-8 col-lg-6">
             <h4 class="card-title pb-0 mb-0">My Experiences</h4>
             <div class="timeline my-3">
-                @for (experience of experiences; track $index) {
-                    <div class="point my-3"  [routerLink]="['/experiences', experience.id]">
-                        <div class="card xp-entry">
-                            <p class="card-title fw-bolder pb-0 mb-0">{{experience.title}}</p>
-                            <p class="muted-text my-1">{{experience.company}} | {{experience.startYear}} - {{experience.endYear}}</p>
-                            <p>{{experience.description}}</p>
+                @if(loading){
+                    <app-custom-spinner
+                        [classes]="'mt-5'"
+                        [width]="'3rem'"
+                        [height]="'3rem'"
+                    />
+                }@else if(!loading && hasError){
+                    <app-custom-alert
+                        [alertType]="CustomClassTypeEnum.danger"
+                        [heading]="'An error occurred!!!'"
+                        [message]="'Something went wrong while fetching records for this user. Please try again later'"
+                    />
+                }@else if(!experiences && !hasError){
+                    <app-custom-alert
+                        [alertType]="CustomClassTypeEnum.info"
+                        [heading]="'No record!!!'"
+                        [message]="'No record returned for this user'"
+                    />
+                }@else {
+                    @for (experience of experiences; track $index) {
+                        <div class="point my-3"  [routerLink]="['/experiences', experience.id]">
+                            <div class="card xp-entry">
+                                <p class="card-title fw-bolder pb-0 mb-0">{{experience.jobTitle}}</p>
+                                <p class="muted-text my-1">{{experience.organization}} | {{experience.startDate | dateFormatter }} - {{experience.endDate | dateFormatter }}</p>
+                                <p>{{experience.accomplishments.at(0) ?? ''}}</p>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
         </div>
