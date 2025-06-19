@@ -1,30 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { AppService } from '../../services/app.service';
+import { CustomClassTypeEnum } from '../../entities/enums/custom-alert-type-enum';
+import { ProjectResponseModel } from '../../entities/models/project-models';
+import { CustomAlertComponent } from '../common/custom-alert/custom-alert.component';
+import { CustomSpinnerComponent } from '../common/custom-spinner/custom-spinner.component';
 
 @Component({
   selector: 'app-projects',
-  imports: [],
+  imports: [
+    CustomAlertComponent,
+    CustomSpinnerComponent
+  ],
   templateUrl: './projects.component.html',
   styles: ``
 })
-export class ProjectsComponent {
-  projectsData = [
-    {
-        Name: "Portfolio Website",
-        Link: "https://myportfolio.com",
-        Description: "A sleek, responsive portfolio website showcasing my skills and projects.",
-        Technologies: ["HTML", "CSS", "JavaScript"]
-    },
-    {
-        Name: "Task Manager App",
-        Link: "https://taskmanager.com",
-        Description: "A web application for managing daily tasks efficiently.",
-        Technologies: ["React.js", "Node.js", "MongoDB"]
-    },
-    {
-        Name: "E-commerce Platform",
-        Link: "https://ecommerce.com",
-        Description: "A full-featured e-commerce platform for online shopping.",
-        Technologies: ["Angular", "TypeScript", "Firebase"]
-    }
-  ];
+export class ProjectsComponent implements OnInit {
+  loading: boolean = false;
+  hasError: boolean = false;
+  appSvc = inject(AppService);
+  CustomClassTypeEnum = CustomClassTypeEnum;
+  projects: ProjectResponseModel[] = [];
+
+  ngOnInit(): void {
+    this.getProjects()
+  }
+
+  getProjects() {
+    this.loading = true;
+    this.appSvc.getProjectsObservable()
+      .valueChanges
+      .subscribe({
+        next: (data: any) => {
+          this.projects = <ProjectResponseModel[]>(data.data.projects);
+          this.loading = false;
+        },
+        error: (e: Error) => {
+          this.loading = false;
+          this.hasError = true;
+        }
+    })
+  }
 }

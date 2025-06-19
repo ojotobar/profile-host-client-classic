@@ -4,14 +4,34 @@
         <div class="col-sm-12 col-md-8 col-lg-6">
             <h4 class="card-title pb-0 mb-0">My Qualifications</h4>
             <div class="timeline my-3">
-                @for (education of educationData; track $index) {
-                    <div class="point my-3"  [routerLink]="['/educations', education]">
-                        <div class="card xp-entry">
-                            <p class="card-title fw-bold pb-0 mb-0">{{education.LevelDescription}} in {{education.Major}}</p>
-                            <p class="muted-text my-1">{{education.InstitutionName}} | {{education.StartDate}} - {{education.EndDate}}</p>
-                            <p>{{education.Location}}</p>
+                @if(loading){
+                    <app-custom-spinner
+                        [classes]="'mt-5'"
+                        [width]="'3rem'"
+                        [height]="'3rem'"
+                    />
+                }@else if(!loading && hasError){
+                    <app-custom-alert
+                        [alertType]="CustomClassTypeEnum.danger"
+                        [heading]="'An error occurred!!!'"
+                        [message]="'Something went wrong while fetching records for this user. Please try again later'"
+                    />
+                }@else if(!educations && !hasError){
+                    <app-custom-alert
+                        [alertType]="CustomClassTypeEnum.info"
+                        [heading]="'No record!!!'"
+                        [message]="'No record returned for this user'"
+                    />
+                }@else {
+                    @for (education of educations; track $index) {
+                        <div class="point my-3"  [routerLink]="['/educations', education.id]">
+                            <div class="card xp-entry">
+                                <p class="card-title fw-bold pb-0 mb-0">{{education.levelDescription}} in {{education.major}}</p>
+                                <p class="muted-text my-1">{{education.institutionName}} | {{education.startDate | dateFormatter }} - {{education.endDate | dateFormatter }}</p>
+                                <p>{{education.location.city}}, {{education.location.country}}</p>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
         </div>
