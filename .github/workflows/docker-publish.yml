@@ -74,7 +74,8 @@ jobs:
             echo "value=true" >> $GITHUB_OUTPUT
           else
             echo "value=false" >> $GITHUB_OUTPUT
-
+          fi
+          
       - name: Write build-variables.json to Angular assets
         run: |
           echo "{ \"version\": \"${{ steps.get_version.outputs.VERSION }}\", \"apiUrl\": \"${{ secrets.API_URL }}\", \"tag\": \"${{ secrets.TAG }}\", \"isPremium\": ${{ steps.premium_flag.outputs.value }} }" > src/assets/env/build-variables.json
