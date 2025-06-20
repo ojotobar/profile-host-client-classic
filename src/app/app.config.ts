@@ -38,6 +38,7 @@ export const appConfig: ApplicationConfig = {
           headers: {
             'X-PPAPI-KEY': apiKey ?? '',
             'X-CLIENT-TAG': envService.tag,
+            'X-IS-PREMIUM': String(envService.isPremium),
             'GraphQL-Preflight': 1,
           },
         };
