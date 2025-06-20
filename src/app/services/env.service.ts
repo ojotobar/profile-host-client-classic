@@ -15,6 +15,10 @@ export class EnvService {
     return this.variables$.version;
   }
 
+  get tag(): string {
+    return this.variables$.tag;
+  }
+
   get apiKey(): string {
     return (window as any).__env?.X_PPAPI_KEY || '';
   }

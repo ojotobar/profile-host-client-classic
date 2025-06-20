@@ -15,7 +15,7 @@ jobs:
         run: |
           echo "Merged: ${{ github.event.pull_request.merged }}"
           echo "Head ref: ${{ github.event.pull_request.head.ref }}"
-          
+
           if [[ "${{ github.event.pull_request.merged }}" != "true" || "${{ github.event.pull_request.head.ref }}" != "development" ]]; then
             echo "PR must be merged from 'development' into 'master'"
             exit 1
@@ -42,8 +42,6 @@ jobs:
           IMAGE_NAME="portfolio"
           REPO="$DOCKERHUB_USERNAME/$IMAGE_NAME"
 
-          echo "Fetching tags for $REPO..."
-
           TAGS=$(curl -s -u "$DOCKERHUB_USERNAME:$DOCKERHUB_PASSWORD" \
             "https://hub.docker.com/v2/repositories/$REPO/tags/?page_size=10000" \
             | jq -r '.results[].name' | grep -E '^v[0-9]+\.[0-9]+$' || echo "")
@@ -66,12 +64,11 @@ jobs:
             NEXT_VERSION="$MAJOR.$MINOR"
           fi
 
-          echo "Next version: v$NEXT_VERSION"
           echo "VERSION=v$NEXT_VERSION" >> $GITHUB_OUTPUT
 
       - name: Write build-variables.json to Angular assets
         run: |
-          echo "{ \"version\": \"${{ steps.get_version.outputs.VERSION }}\", \"apiUrl\": \"${{ secrets.API_URL }}\" }" > src/assets/env/build-variables.json
+          echo "{ \"version\": \"${{ steps.get_version.outputs.VERSION }}\", \"apiUrl\": \"${{ secrets.API_URL }}\", \"tag\": \"${{ secrets.TAG }}\" }" > src/assets/env/build-variables.json
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -86,14 +83,65 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.PROD_HUB_USERNAME }}/portfolio:classic
+            ${{ secrets.PROD_HUB_USERNAME }}/portfolio:${{ secrets.TAG }}
             ${{ secrets.PROD_HUB_USERNAME }}/portfolio:${{ steps.get_version.outputs.VERSION }}
 
       - name: Send Slack Notification
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          DEPLOYED_VERSION=${{ steps.get_version.outputs.VERSION }}
           curl -X POST -H 'Content-type: application/json' --data "{
-            \"text\": \"🚀 *Portfolio (Classic) Container Image Built and Pushed To Docker Hub!*\nVersion: \`$DEPLOYED_VERSION\`\nTag: \`classic\`\nEnvironment: *Production*\"
+            \"text\": \"🚀 *Portfolio (Classic) Image Deployed!*\nVersion: \`${{ steps.get_version.outputs.VERSION }}\`\nTag: \`${{ secrets.TAG }}\`\nEnvironment: *Production*\" 
           }" $SLACK_WEBHOOK_URL
+
+      - name: Get Auth Token from GraphQL Login
+        id: graphql_auth
+        run: |
+          LOGIN_JSON=$(jq -n \
+            --arg email "${{ secrets.GRAPHQL_LOGIN_EMAIL }}" \
+            --arg password "${{ secrets.GRAPHQL_LOGIN_PASSWORD }}" \
+            '{
+              query: "mutation Login($input: LoginUserInput!) { loginUser(input: $input) { loginResult { accessToken successful } } }",
+              variables: {
+                input: {
+                  input: {
+                    email: $email,
+                    password: $password
+                  }
+                }
+              }
+            }')
+
+          RESPONSE=$(curl -s -X POST ${{ secrets.API_URL }} \
+            -H "Content-Type: application/json" \
+            -d "$LOGIN_JSON")
+
+          echo "Response: $RESPONSE"
+          ACCESS_TOKEN=$(echo "$RESPONSE" | jq -r '.data.loginUser.loginResult.accessToken')
+
+          if [ "$ACCESS_TOKEN" = "null" ]; then
+            echo "Login failed. No token received."
+            exit 1
+          fi
+
+          echo "::add-mask::$ACCESS_TOKEN"
+          echo "token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
+
+      - name: Notify Users via GraphQL Mutation
+        run: |
+          curl -X POST ${{ secrets.API_URL }} \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ steps.graphql_auth.outputs.token }}" \
+            -H "GraphQL-Preflight: 1" \
+            -d '{
+              "query": "mutation NewDeployAlert($input: SendNewVersionNotificationInput!) { sendNewVersionNotification(input: $input) { payload { message success } } }",
+              "variables": {
+                "input": {
+                  "input": {
+                    "version": "${{ steps.get_version.outputs.VERSION }}",
+                    "tag": "${{ secrets.TAG }}",
+                    "env": "production"
+                  }
+                }
+              }
+            }'
