@@ -15,6 +15,7 @@ function fetchBuildVariables(): Promise<BuildVariables> {
       return {
         version: 'Dev Version',
         tag: 'classic',
+        isPremium: false,
         apiUrl: 'https://localhost:7051/profilesql',
       };
     });

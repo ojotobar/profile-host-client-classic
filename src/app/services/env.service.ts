@@ -19,6 +19,10 @@ export class EnvService {
     return this.variables$.tag;
   }
 
+  get isPremium(): boolean {
+    return this.variables$.isPremium;
+  }
+
   get apiKey(): string {
     return (window as any).__env?.X_PPAPI_KEY || '';
   }
