@@ -14,6 +14,7 @@ function fetchBuildVariables(): Promise<BuildVariables> {
       console.warn('⚠️ build-variables.json not found, using fallback.');
       return {
         version: 'Dev Version',
+        tag: 'classic',
         apiUrl: 'https://localhost:7051/profilesql',
       };
     });
