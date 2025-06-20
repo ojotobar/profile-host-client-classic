@@ -55,9 +55,19 @@ jobs:
           echo "Next version: v$NEXT_VERSION"
           echo "VERSION=v$NEXT_VERSION" >> $GITHUB_OUTPUT
 
+      - name: Determine isPremium boolean
+        id: premium_flag
+        run: |
+          raw="${{ secrets.IS_PREMIUM }}"
+          if [[ "$raw" == "true" || "$raw" == "1" ]]; then
+            echo "value=true" >> $GITHUB_OUTPUT
+          else
+            echo "value=false" >> $GITHUB_OUTPUT
+          fi
+          
       - name: Write build-variables.json to Angular assets
         run: |
-          echo "{ \"version\": \"${{ steps.get_version.outputs.VERSION }}\", \"apiUrl\": \"${{ secrets.API_URL }}\", \"tag\": \"${{ secrets.TAG }}\" }" > src/assets/env/build-variables.json
+          echo "{ \"version\": \"${{ steps.get_version.outputs.VERSION }}\", \"apiUrl\": \"${{ secrets.API_URL }}\", \"tag\": \"${{ secrets.TAG }}\", \"isPremium\": ${{ steps.premium_flag.outputs.value }} }" > src/assets/env/build-variables.json
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
