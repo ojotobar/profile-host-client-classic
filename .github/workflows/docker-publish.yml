@@ -140,7 +140,8 @@ jobs:
                   "input": {
                     "version": "${{ steps.get_version.outputs.VERSION }}",
                     "tag": "${{ secrets.TAG }}",
-                    "env": "production"
+                    "env": "production",
+                    "isPremium": false
                   }
                 }
               }
