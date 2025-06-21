@@ -63,6 +63,9 @@ export class AppComponent {
           var result = <ProfileSummaryForMenuResult>(data.data.profileSummaries);
           if(result.success){
             this.summary = result.summary;
+            if(this.summary){
+              document.title = `${this.summary.firstName} ${this.summary.lastName} | Portfolio`;
+            }
           }else{
             this.hasError = true
           }
